@@ -1,6 +1,7 @@
 package funkin.states;
 
 @:structInit
+@:publicFields
 class TitleData {
 	var logo:Array<Float> = [-150, -100];
 	var start:Array<Float> = [100, 576];

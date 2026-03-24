@@ -12,4 +12,6 @@ import flixel.text.FlxText;
 import flixel.group.FlxGroup;
 import flixel.group.FlxSpriteGroup;
 import flixel.sound.FlxSound;
+
+import haxe.Json;
 #end

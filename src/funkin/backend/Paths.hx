@@ -204,6 +204,14 @@ class Paths {
 		return get(key, subFolder);
 	}
 
+	// basically sys.io.File.getContent() but a failsafe if the file doesn't exist
+	public static function getFileContent(path:String):String {
+		path = get(path);
+		if (!FileSystem.exists(path)) return '';
+
+		return File.getContent(path);
+	}
+
 	static function combineAtlas(atlasA:FlxAtlasFrames, atlasB:FlxAtlasFrames):FlxAtlasFrames {
 		if (atlasA is FlxAnimateFrames) {
 			@:privateAccess if (atlasB is FlxAnimateFrames && cast (atlasA, FlxAnimateFrames).addedCollections.contains(cast atlasB))
