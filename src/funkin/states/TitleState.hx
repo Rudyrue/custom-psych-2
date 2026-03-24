@@ -43,6 +43,8 @@ class TitleState extends FunkinState {
 	var seenIntro:Bool = false;
 	var accepted:Bool = false;
 	override function create():Void {
+		FunkinState.skipNextTransOut = true;
+
 		super.create();
 		persistentUpdate = true;
 		
@@ -147,7 +149,7 @@ class TitleState extends FunkinState {
 
 		if (Controls.justPressed('accept') || FlxG.mouse.justPressed) {
 			if (accepted) {
-				FlxG.switchState(new MainMenuState());
+				FunkinState.switchState(new MainMenuState());
 				return;
 			}
 
@@ -160,7 +162,7 @@ class TitleState extends FunkinState {
 				text.alpha = 1;
 				text.animation.play('pressed');
 				new FlxTimer().start(2, function(_) {
-					FlxG.switchState(new MainMenuState());
+					FunkinState.switchState(new MainMenuState());
 				});
 			}
 		}

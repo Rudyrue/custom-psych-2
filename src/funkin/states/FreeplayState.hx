@@ -72,7 +72,7 @@ class FreeplayState extends FunkinState {
 		}
 
 		if (Controls.justPressed('back') || FlxG.mouse.justPressedRight) {
-			FlxG.switchState(new MainMenuState());
+			FunkinState.switchState(new MainMenuState());
 			FlxG.sound.play(Paths.sfx('cancelMenu'));
 		}
 
@@ -104,7 +104,7 @@ class FreeplayState extends FunkinState {
 		if (Controls.justPressed('accept') || FlxG.mouse.justPressed) {
 			PlayState.songID = curSong.id;
 			Difficulty.current = Difficulty.list[curDifficulty];
-			FlxG.switchState(new PlayState());
+			FunkinState.switchState(new PlayState());
 		}
 	}
 

@@ -21,6 +21,8 @@ class MainMenuState extends FunkinState {
 
 	var atlas:FlxAtlasFrames = null;
 	override function create():Void {
+		super.create();
+
 		atlas = Paths.multiAtlas([for (i in options) 'menus/main/$i']);
 
 		add(camFollow = new FlxObject(FlxG.width * 0.5, 0, 1, 1));
@@ -79,7 +81,7 @@ class MainMenuState extends FunkinState {
 		}
 
 		if (Controls.justPressed('back')) {
-			FlxG.switchState(new TitleState());
+			FunkinState.switchState(new TitleState());
 		}
 
 		if (Controls.justPressed('accept') || (mouseControls && FlxG.mouse.overlaps(optionGrp.members[curSelected]) && FlxG.mouse.justPressed)) {
@@ -124,7 +126,7 @@ class MainMenuState extends FunkinState {
 	function goToState(name:String) {
 		switch name {
 			case 'freeplay':
-				FlxG.switchState(new FreeplayState());
+				FunkinState.switchState(new FreeplayState());
 							
 			default: reviveOptions();
 		}

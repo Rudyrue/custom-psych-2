@@ -238,7 +238,7 @@ class PlayState extends FunkinState {
 	}
 
 	public function endSong() {
-		FlxG.switchState(new FreeplayState());
+		FunkinState.switchState(new FreeplayState());
 		playMenuMusic();
 	}
 
