@@ -146,7 +146,7 @@ class PlayField extends FlxSpriteGroup {
 	}
 
 	function botplayInputs(strum:StrumNote, note:Note) {
-		if (note.time > Conductor.visualTime) return;
+		if (note.time > Conductor.time) return;
 
 		noteHit(strum.parent, note);
 		note.wasHit = true;
@@ -162,7 +162,7 @@ class PlayField extends FlxSpriteGroup {
 
 		var held:Bool = pressedKeys[note.lane];
 		var playerHeld:Bool = (held || note.coyoteTimer > 0);
-		var heldKey:Bool = (!strum.parent.ai && playerHeld) || (strum.parent.ai && note.time <= Conductor.visualTime);
+		var heldKey:Bool = (!strum.parent.ai && playerHeld) || (strum.parent.ai && note.time <= Conductor.time);
 
 		final coyoteLim = 0.175 * note.coyoteHitMult;
 		if (note.coyoteTimer < coyoteLim && held) {
@@ -198,7 +198,7 @@ class PlayField extends FlxSpriteGroup {
 			// we want the most recent, but we also dont wanna prioritize super short sustains
 			final idx = note.length >= 250 ? curHolds.length : 0;
 			curHolds.insert(idx, note);
-		} else if (note.time + note.length <= Conductor.visualTime) {
+		} else if (note.time + note.length <= Conductor.time) {
 			curHolds.remove(note);
 			note.kill();
 			strum.isHolding = !strum.parent.ai && held;

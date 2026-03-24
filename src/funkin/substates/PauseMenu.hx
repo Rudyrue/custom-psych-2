@@ -115,14 +115,14 @@ class PauseMenu extends flixel.FlxSubState {
 			if (changingDifficulty) {
 				destroyMusic();
 				Difficulty.current = Difficulty.list[curSelected];
-				FlxG.resetState();
+				FunkinState.resetState();
 			} else switch (options[curSelected]) {
 				case 'Resume': resume();
 					
 				case 'Restart': 
 					destroyMusic();
 					FlxG.mouse.visible = false;
-					FlxG.resetState();
+					FunkinState.resetState();
 
 				case 'Change Difficulty': 
 					regenerateOptions(Difficulty.list);

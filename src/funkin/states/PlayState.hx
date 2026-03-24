@@ -53,6 +53,8 @@ class PlayState extends FunkinState {
 	var hud:FlxSpriteGroup;
 	override function create():Void {
 		super.create();
+		persistentUpdate = true;
+
 		self = this;
 
 		var opponentLine = new Strumline(320, 50);
@@ -80,7 +82,7 @@ class PlayState extends FunkinState {
 			countdown.finished = true;
 			countdown.onFinish();
 		} else {
-			Conductor.time = (Conductor.crotchet * -4);
+			Conductor.rawTime = (Conductor.crotchet * -4);
 			countdown.starting = true;
 			countdown.start();
 		}

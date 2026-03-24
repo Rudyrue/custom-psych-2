@@ -123,8 +123,8 @@ class Sustain extends Note {
 		if (alpha == 0 || coyoteAlpha <= 0 || height <= 0)
 			return;
 
-		holdFrame = frames.frames[holdAnim.frames[Math.floor(Math.abs(Conductor.visualTime * 0.001 * holdAnim.frameRate) % holdAnim.frames.length)]];
-		tailFrame = frames.frames[tailAnim.frames[Math.floor(Math.abs(Conductor.visualTime * 0.001 * tailAnim.frameRate) % tailAnim.frames.length)]];
+		holdFrame = frames.frames[holdAnim.frames[Math.floor(Math.abs(Conductor.time * 0.001 * holdAnim.frameRate) % holdAnim.frames.length)]];
+		tailFrame = frames.frames[tailAnim.frames[Math.floor(Math.abs(Conductor.time * 0.001 * tailAnim.frameRate) % tailAnim.frames.length)]];
 		for (camera in cameras) {
 			if (!camera.visible || !camera.exists)
 				continue;

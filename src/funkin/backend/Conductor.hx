@@ -22,8 +22,33 @@ class Conductor extends flixel.FlxBasic {
 	public static var voices:FlxSound;
 	public static final vocalResyncDiff:Float = 10.0;
 
-	public static var rawTime:Float = 0;
-	public static var visualTime:Float = 0;
+	// basically an internal placeholder
+	// for whether the song has actually started playing or not
+	// different from `playing`
+	static var _songPlaying:Bool = false;
+
+	static var _rawTime:Float = 0.0;
+	@:isVar public static var rawTime(get, set):Float;
+	static function get_rawTime():Float {
+		if (inst == null || !inst.playing) {
+			return _rawTime + offset;
+		}
+
+		return inst.time + offset;
+	}
+
+	static function set_rawTime(v:Float):Float {
+		if (inst == null) return _rawTime = v;
+		if (!inst.playing) {
+			_rawTime = v;
+			return _songPlaying ? inst.time = v : v;
+		}
+
+		return inst.time = v;
+	}
+
+	public static var time:Float = 0;
+
 	public static var length:Float = 0;
 	public static var offset:Float = 0;
 	public static var metronome:Bool = false;
@@ -69,12 +94,13 @@ class Conductor extends flixel.FlxBasic {
 		floatBeat = beat = -1;
 		floatStep = step = -1;
 
-		rawTime = visualTime = time = 0.0;
+		rawTime = time = time = 0.0;
 		offset = 0.0;
 
 		if (voices != null) voices.destroy();
 		voices = null;
 
+		_songPlaying = false;
 		playing = false;
 
 		stepHit.removeAll();
@@ -90,27 +116,22 @@ class Conductor extends flixel.FlxBasic {
 		syncBeats();
 	}
 
-	public static var time:Float = 0; // used if the inst isn't playing but playing is still set to true
 	static var _lastTime:Float = 0;
 	public static dynamic function syncTime(delta:Float) {
 		delta *= 1000;
 		if (inst == null || !inst.playing) {
-			time += delta;
-			rawTime = time + offset;
-			visualTime = rawTime;
+			_rawTime += delta;
+			time = rawTime;
 			return;
 		}
-
-		time = inst.time;
-		rawTime = time + offset;
 		
 		if (inst.time == _lastTime) {
-			visualTime += delta;
+			time += delta;
 		} else {
-			if (Math.abs(rawTime - visualTime) >= delta)
-				visualTime = rawTime;
+			if (Math.abs(rawTime - time) >= delta)
+				time = rawTime;
 			else
-				visualTime += delta;
+				time += delta;
 
 			_lastTime = inst.time;
 		}
@@ -155,12 +176,16 @@ class Conductor extends flixel.FlxBasic {
 	}
 
     public static function stop() {
+		_songPlaying = false;
+
 		playing = false;
         inst.stop();
         if (voices != null) voices.stop();
     }
 
     public static function play() {
+		_songPlaying = true;
+
 		playing = true;
         inst.play();
         if (voices != null) voices.play();

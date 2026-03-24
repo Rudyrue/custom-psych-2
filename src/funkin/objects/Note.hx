@@ -34,7 +34,7 @@ class Note extends FlxSprite {
 
 	public var hitTime(get, never):Float;
 	function get_hitTime():Float {
-		return time - Conductor.visualTime;
+		return time - Conductor.time;
 	}
 
 	public var wasHit:Bool = false;
