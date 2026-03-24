@@ -199,7 +199,7 @@ class Paths {
 		if (!FileSystem.exists(key)) return '';
 		return sys.io.File.getContent(key);
 	}
-
+ 
 	public static function font(key:String, ?subFolder:String = 'fonts'):String {
 		return get(key, subFolder);
 	}
