@@ -20,6 +20,8 @@ class FunkinState extends flixel.FlxState {
 	}
 
 	function playMenuMusic() {
+		if (Conductor.inst != null && Conductor.inst.playing) return;
+
 		Conductor.inst = FlxG.sound.load(Paths.audio('freakyMenu', 'music'), 0.7, true);
 		Conductor.play();
 	}
